@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Services\WeatherService;
+use App\Events\WeatherUpdated;
 
 class UserController extends Controller
 {
@@ -37,6 +38,7 @@ class UserController extends Controller
                 'temp_max' => $weather['main']['temp_max'] ?? 'No disponible',
                 'countryName' => $weather['name'] ?? 'No disponible',
             ];
+            broadcast(new WeatherUpdated($user, $weatherData));
             return [
                 'name' => $user->name,
                 'latitude' => $user->latitude,
