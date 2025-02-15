@@ -27,6 +27,7 @@ class UserController extends Controller
         $users = User::all()->map(function ($user) {
             $weather = $this->weatherService->getWeather($user->latitude, $user->longitude);
             $weatherData = [
+                'id' => $weather['weather'][0]['id'] ?? 'No disponible',
                 'main' => $weather['weather'][0]['main'] ?? 'No disponible',
                 'description' => $weather['weather'][0]['description'] ?? 'No disponible',
                 'icon' => $weather['weather'][0]['icon'] ?? 'No disponible',
